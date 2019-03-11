@@ -1,0 +1,24 @@
+server:
+  port: 6002
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka
+
+spring:
+  application:
+      name: gateway-service
+  cloud:
+    gateway:
+      x-forwarded:
+        for-enable: true
+      discovery:
+        locator:
+          enabled: true
+      routes:
+
+        -
+          id: demo-service
+          uri: 'lb://demo-service'
+          predicates:
+            - Path=/**
